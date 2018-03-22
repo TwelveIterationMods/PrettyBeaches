@@ -7,6 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -42,7 +43,7 @@ public class PrettyBeaches {
 
     @SubscribeEvent
     public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (event.getState().getBlock() == Blocks.SAND) {
+        if (event.getState().getBlock() == Blocks.SAND && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 IBlockState state = event.getWorld().getBlockState(event.getPos().offset(facing));
                 if (state.getMaterial() == Material.WATER) {
