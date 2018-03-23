@@ -58,7 +58,7 @@ public class PrettyBeaches {
 
     private void populateWater(World world, BlockPos pos, int depth) {
         world.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState(), 11);
-        if (depth <= MAX_DEPTH) {
+        if (depth <= MAX_DEPTH && pos.getY() == world.getSeaLevel() - 1) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(pos).move(facing);
