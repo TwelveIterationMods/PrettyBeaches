@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 public class PrettyBeaches {
 
     public static final String MOD_ID = "prettybeaches";
-    private static final int MAX_DEPTH = 2;
+    private static final int MAX_DEPTH = 3;
 
     @Mod.Instance(MOD_ID)
     public static PrettyBeaches instance;
@@ -44,9 +44,11 @@ public class PrettyBeaches {
     @SubscribeEvent
     public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
         if (event.getState().getBlock() == Blocks.SAND && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
+            BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
-                IBlockState state = event.getWorld().getBlockState(event.getPos().offset(facing));
-                if (state.getMaterial() == Material.WATER) {
+                mutPos.setPos(event.getPos()).move(facing);
+                IBlockState state = event.getWorld().getBlockState(mutPos);
+                if (state.getBlock() == Blocks.FLOWING_WATER || state.getBlock() == Blocks.WATER) {
                     populateWater(event.getWorld(), event.getPos(), 0);
                     return;
                 }
@@ -57,11 +59,12 @@ public class PrettyBeaches {
     private void populateWater(World world, BlockPos pos, int depth) {
         world.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState(), 11);
         if (depth <= MAX_DEPTH) {
+            BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
-                BlockPos other = pos.offset(facing);
-                IBlockState state = world.getBlockState(other);
+                mutPos.setPos(pos).move(facing);
+                IBlockState state = world.getBlockState(mutPos);
                 if (state.getBlock() == Blocks.AIR) {
-                    populateWater(world, other, depth + 1);
+                    populateWater(world, mutPos, depth + 1);
                     return;
                 }
             }
