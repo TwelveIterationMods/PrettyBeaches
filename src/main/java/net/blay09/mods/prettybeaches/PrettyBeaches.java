@@ -1,5 +1,6 @@
 package net.blay09.mods.prettybeaches;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -7,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -16,6 +18,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
 
 @Mod(modid = PrettyBeaches.MOD_ID, name = "Pretty Beaches", acceptedMinecraftVersions = "[1.12]")
 public class PrettyBeaches {
@@ -28,6 +32,8 @@ public class PrettyBeaches {
 
     public static Logger logger = LogManager.getLogger(MOD_ID);
 
+    public static ArrayList<Block> blocks = new ArrayList<>();
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
@@ -39,11 +45,14 @@ public class PrettyBeaches {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        for ( String block : Configuration.blocksToReplace ) {
+            blocks.add(Block.getBlockFromName(block));
+        }
     }
 
     @SubscribeEvent
     public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (event.getState().getBlock() == Blocks.SAND && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
+        if (blocks.contains(event.getState().getBlock()) && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getPos()).move(facing);
@@ -71,4 +80,9 @@ public class PrettyBeaches {
         }
     }
 
+    @Config(modid = PrettyBeaches.MOD_ID)
+    public static class Configuration {
+        @Config.Name("blocks_to_replace")
+        public static String[] blocksToReplace = {"minecraft:sand"};
+    }
 }
