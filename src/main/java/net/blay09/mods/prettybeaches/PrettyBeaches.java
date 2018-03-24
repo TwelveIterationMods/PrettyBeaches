@@ -1,10 +1,10 @@
 package net.blay09.mods.prettybeaches;
 
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -23,16 +23,17 @@ import org.apache.logging.log4j.Logger;
 public class PrettyBeaches {
 
     public static final String MOD_ID = "prettybeaches";
-    private static final int MAX_DEPTH = 3;
 
     @Mod.Instance(MOD_ID)
     public static PrettyBeaches instance;
 
     public static Logger logger = LogManager.getLogger(MOD_ID);
+    private final FloodingHandler floodingHandler = new FloodingHandler();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(floodingHandler);
     }
 
     @Mod.EventHandler
@@ -59,23 +60,10 @@ public class PrettyBeaches {
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getPos()).move(facing);
                 IBlockState state = event.getWorld().getBlockState(mutPos);
-                if (state.getBlock() == Blocks.FLOWING_WATER || state.getBlock() == Blocks.WATER) {
-                    populateWater(event.getWorld(), event.getPos(), 0);
-                    return;
-                }
-            }
-        }
-    }
-
-    private void populateWater(World world, BlockPos pos, int depth) {
-        world.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState(), 11);
-        if (depth <= MAX_DEPTH && pos.getY() == world.getSeaLevel() - 1) {
-            BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
-            for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
-                mutPos.setPos(pos).move(facing);
-                IBlockState state = world.getBlockState(mutPos);
-                if (state.getBlock() == Blocks.AIR) {
-                    populateWater(world, mutPos, depth + 1);
+                int waterLevel = (state.getBlock() == Blocks.FLOWING_WATER) ? state.getValue(BlockLiquid.LEVEL) : -1;
+                if (state.getBlock() == Blocks.WATER || waterLevel == 0) {
+                    event.getWorld().setBlockState(event.getPos(), Blocks.FLOWING_WATER.getDefaultState(), 11);
+                    floodingHandler.scheduleForFlooding(event.getWorld(), event.getPos(), 0);
                     return;
                 }
             }
