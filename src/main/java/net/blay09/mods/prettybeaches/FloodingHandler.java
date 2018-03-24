@@ -27,7 +27,7 @@ public class FloodingHandler {
         }
     }
 
-    public static final int FLOOD_TIME = 20;
+    public static final int FLOOD_TIME = 10;
     private static final int MAX_DEPTH = 6;
 
     private List<Entry> scheduledFloods = new ArrayList<>();
