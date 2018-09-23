@@ -17,10 +17,11 @@ public class PrettyBeachesConfig {
     @Config.Comment("Whether the flooding of adjacent air blocks should be animated or instant.")
     public static boolean animatedFlooding = true;
 
-    private static List<Block> affectedBlocksList;
+    private static List<Block> affectedBlocksList = new ArrayList<>();
 
     public static void onConfigReload() {
-        affectedBlocksList = new ArrayList<>();
+        affectedBlocksList.clear();
+
         for (String block : affectedBlocks) {
             affectedBlocksList.add(Block.getBlockFromName(block));
         }
