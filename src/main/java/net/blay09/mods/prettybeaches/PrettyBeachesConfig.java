@@ -1,34 +1,51 @@
 package net.blay09.mods.prettybeaches;
 
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraftforge.common.config.Config;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.common.Mod;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Config(modid = PrettyBeaches.MOD_ID)
+@Mod.EventBusSubscriber
 public class PrettyBeachesConfig {
 
-    @Config.Name("Affected Blocks")
-    @Config.Comment("List of blocks that should be affected by the adjusted water physics.")
-    public static String[] affectedBlocks = {"minecraft:sand"};
+    public static class Common {
+        public final ForgeConfigSpec.ConfigValue<List<String>> affectedBlocks;
+        public final ForgeConfigSpec.BooleanValue animatedFlooding;
 
-    @Config.Name("Animated Flooding")
-    @Config.Comment("Whether the flooding of adjacent air blocks should be animated or instant.")
-    public static boolean animatedFlooding = true;
+        Common(ForgeConfigSpec.Builder builder) {
+            builder.comment("Configuration for Pretty Beaches").push("common");
 
-    private static List<Block> affectedBlocksList = new ArrayList<>();
+            affectedBlocks = builder
+                    .comment("List of blocks that should be affected by the adjusted water physics.")
+                    .translation("prettybeaches.config.affectedBlocks")
+                    .define("affectedBlocks", Lists.newArrayList("minecraft:sand"));
 
-    public static void onConfigReload() {
-        affectedBlocksList.clear();
-
-        for (String block : affectedBlocks) {
-            affectedBlocksList.add(Block.getBlockFromName(block));
+            animatedFlooding = builder
+                    .comment("Whether the flooding of adjacent air blocks should be animated or instant.")
+                    .translation("prettybeaches.config.affectedBlocks")
+                    .define("animatedFlooding", true);
         }
     }
 
     public static boolean isBlockAffected(Block block) {
-        return affectedBlocksList.contains(block);
+        ResourceLocation resourceLocation = block.getRegistryName();
+        if (resourceLocation != null) {
+            return COMMON.affectedBlocks.get().contains(resourceLocation.toString());
+        }
+
+        return false;
     }
 
+    static final ForgeConfigSpec commonSpec;
+    public static final Common COMMON;
+
+    static {
+        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        commonSpec = specPair.getRight();
+        COMMON = specPair.getLeft();
+    }
 }

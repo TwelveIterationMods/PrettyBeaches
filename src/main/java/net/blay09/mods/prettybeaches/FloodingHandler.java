@@ -1,12 +1,12 @@
 package net.blay09.mods.prettybeaches;
 
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class FloodingHandler {
     private List<Entry> scheduledFloods = new ArrayList<>();
 
     public void scheduleForFlooding(World world, BlockPos pos, int depth) {
-        if (PrettyBeachesConfig.animatedFlooding) {
+        if (PrettyBeachesConfig.COMMON.animatedFlooding.get()) {
             scheduledFloods.add(new Entry(world, pos, depth));
         } else {
             populateWater(world, pos, depth);
@@ -56,14 +56,15 @@ public class FloodingHandler {
 
     private void populateWater(World world, BlockPos pos, int depth) {
         IBlockState sourceState = world.getBlockState(pos);
-        if (sourceState.getBlock() == Blocks.AIR || sourceState.getBlock() == Blocks.FLOWING_WATER || sourceState.getBlock() == Blocks.WATER) {
-            world.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState(), 11);
+        if (sourceState.getBlock() == Blocks.AIR || sourceState.getBlock() == Blocks.WATER) {
+            world.setBlockState(pos, Blocks.WATER.getDefaultState(), 11);
             if (depth <= MAX_DEPTH && pos.getY() == world.getSeaLevel() - 1) {
                 BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
                 for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                     mutPos.setPos(pos).move(facing);
                     IBlockState state = world.getBlockState(mutPos);
-                    int waterLevel = (state.getBlock() == Blocks.FLOWING_WATER) ? state.getValue(BlockLiquid.LEVEL) : -1;
+                    IFluidState fluidState = world.getFluidState(mutPos);
+                    int waterLevel = fluidState.getLevel();
                     if (state.getBlock() == Blocks.AIR || (waterLevel > 0 && waterLevel < 11)) {
                         scheduleForFlooding(world, mutPos, depth + 1);
                         return;
