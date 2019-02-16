@@ -3,6 +3,7 @@ package net.blay09.mods.prettybeaches;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Fluids;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -55,8 +56,8 @@ public class FloodingHandler {
     }
 
     private void populateWater(World world, BlockPos pos, int depth) {
-        IBlockState sourceState = world.getBlockState(pos);
-        if (sourceState.getBlock() == Blocks.AIR || sourceState.getBlock() == Blocks.WATER) {
+        IFluidState sourceState = world.getFluidState(pos);
+        if (sourceState.getBlockState().isAir(world, pos) || sourceState.getFluid() == Fluids.WATER || sourceState.getFluid() == Fluids.FLOWING_WATER) {
             world.setBlockState(pos, Blocks.WATER.getDefaultState(), 11);
             if (depth <= MAX_DEPTH && pos.getY() == world.getSeaLevel() - 1) {
                 BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
@@ -65,7 +66,7 @@ public class FloodingHandler {
                     IBlockState state = world.getBlockState(mutPos);
                     IFluidState fluidState = world.getFluidState(mutPos);
                     int waterLevel = fluidState.getLevel();
-                    if (state.getBlock() == Blocks.AIR || (waterLevel > 0 && waterLevel < 11)) {
+                    if (state.isAir(world, pos) || (waterLevel > 0 && waterLevel < 8)) {
                         scheduleForFlooding(world, mutPos, depth + 1);
                         return;
                     }
