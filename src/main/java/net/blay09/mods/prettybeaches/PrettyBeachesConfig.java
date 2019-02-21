@@ -9,7 +9,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
 public class PrettyBeachesConfig {
 
     public static class Common {
