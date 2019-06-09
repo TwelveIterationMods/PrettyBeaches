@@ -1,10 +1,10 @@
 package net.blay09.mods.prettybeaches;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Fluids;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -61,9 +61,9 @@ public class FloodingHandler {
             world.setBlockState(pos, Blocks.WATER.getDefaultState(), 11);
             if (depth <= MAX_DEPTH && pos.getY() == world.getSeaLevel() - 1) {
                 BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
-                for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
+                for (Direction facing : Direction.Plane.HORIZONTAL) {
                     mutPos.setPos(pos).move(facing);
-                    IBlockState state = world.getBlockState(mutPos);
+                    BlockState state = world.getBlockState(mutPos);
                     IFluidState fluidState = world.getFluidState(mutPos);
                     int waterLevel = fluidState.getLevel();
                     if (state.isAir(world, pos) || (waterLevel > 0 && waterLevel < 8)) {
