@@ -15,7 +15,7 @@ public class PrettyBeaches {
 
         FloodingHandler floodingHandler = new FloodingHandler();
         MinecraftForge.EVENT_BUS.register(floodingHandler);
-        MinecraftForge.EVENT_BUS.register(new HarvestBlockHandler(floodingHandler));
+        MinecraftForge.EVENT_BUS.register(new BreakBlockHandler(floodingHandler));
     }
 
 }

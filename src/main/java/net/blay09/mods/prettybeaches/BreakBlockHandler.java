@@ -1,6 +1,7 @@
 package net.blay09.mods.prettybeaches;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.util.Direction;
@@ -10,17 +11,22 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class HarvestBlockHandler {
+public class BreakBlockHandler {
 
     private final FloodingHandler floodingHandler;
 
-    public HarvestBlockHandler(FloodingHandler floodingHandler) {
+    public BreakBlockHandler(FloodingHandler floodingHandler) {
         this.floodingHandler = floodingHandler;
     }
 
     @SubscribeEvent
-    public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (PrettyBeachesConfig.isBlockAffected(event.getState().getBlock()) && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
+    public void onBreakBlock(BlockEvent.BreakEvent event) {
+        PlayerEntity player = event.getPlayer();
+        if (player.playerAbilities.isCreativeMode) {
+            return;
+        }
+
+        if (PrettyBeachesConfig.isBlockAffected(event.getState().getBlock()) && !(player instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getPos()).move(facing);
