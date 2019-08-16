@@ -22,7 +22,7 @@ public class BreakBlockHandler {
     @SubscribeEvent
     public void onBreakBlock(BlockEvent.BreakEvent event) {
         PlayerEntity player = event.getPlayer();
-        if (player.playerAbilities.isCreativeMode) {
+        if (player.abilities.isCreativeMode) {
             return;
         }
 
