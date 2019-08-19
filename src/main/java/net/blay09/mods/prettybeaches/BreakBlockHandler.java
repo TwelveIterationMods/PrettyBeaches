@@ -1,5 +1,6 @@
 package net.blay09.mods.prettybeaches;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
@@ -32,6 +33,7 @@ public class BreakBlockHandler {
                 mutPos.setPos(event.getPos()).move(facing);
                 IFluidState fluidState = event.getWorld().getFluidState(mutPos);
                 if (fluidState.getFluid() == Fluids.WATER || fluidState.getFluid() == Fluids.FLOWING_WATER) {
+                    Block.spawnDrops(event.getState(), (World) event.getWorld(), event.getPos(), event.getWorld().getTileEntity(event.getPos()), event.getPlayer(), event.getPlayer().getHeldItemMainhand());
                     event.getWorld().setBlockState(event.getPos(), Blocks.WATER.getDefaultState(), 11);
                     floodingHandler.scheduleForFlooding((World) event.getWorld(), event.getPos(), 0);
                     return;
