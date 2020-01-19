@@ -60,7 +60,7 @@ public class FloodingHandler {
         if (sourceState.getBlockState().isAir(world, pos) || sourceState.getFluid() == Fluids.WATER || sourceState.getFluid() == Fluids.FLOWING_WATER) {
             world.setBlockState(pos, Blocks.WATER.getDefaultState(), 11);
             if (depth <= MAX_DEPTH && pos.getY() == world.getSeaLevel() - 1) {
-                BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
+                BlockPos.Mutable mutPos = new BlockPos.Mutable();
                 for (Direction facing : Direction.Plane.HORIZONTAL) {
                     mutPos.setPos(pos).move(facing);
                     BlockState state = world.getBlockState(mutPos);

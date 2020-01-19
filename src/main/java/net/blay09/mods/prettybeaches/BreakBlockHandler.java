@@ -28,7 +28,7 @@ public class BreakBlockHandler {
         }
 
         if (PrettyBeachesConfig.isBlockAffected(event.getState().getBlock()) && !(player instanceof FakePlayer)) {
-            BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
+            BlockPos.Mutable mutPos = new BlockPos.Mutable();
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getPos()).move(facing);
                 IFluidState fluidState = event.getWorld().getFluidState(mutPos);
