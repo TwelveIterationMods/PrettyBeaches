@@ -11,7 +11,7 @@ import java.util.List;
 public class PrettyBeachesConfig {
 
     public static class Common {
-        public final ForgeConfigSpec.ConfigValue<List<String>> affectedBlocks;
+        public final ForgeConfigSpec.ConfigValue<List<? extends String>> affectedBlocks;
         public final ForgeConfigSpec.BooleanValue animatedFlooding;
 
         Common(ForgeConfigSpec.Builder builder) {
@@ -20,7 +20,7 @@ public class PrettyBeachesConfig {
             affectedBlocks = builder
                     .comment("List of blocks that should be affected by the adjusted water physics.")
                     .translation("prettybeaches.config.affectedBlocks")
-                    .define("affectedBlocks", Lists.newArrayList("minecraft:sand"));
+                    .defineList("affectedBlocks", Lists.newArrayList("minecraft:sand"), it -> it instanceof String);
 
             animatedFlooding = builder
                     .comment("Whether the flooding of adjacent air blocks should be animated or instant.")
