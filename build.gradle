@@ -26,24 +26,37 @@ minecraft {
 	mappings channel: mappings_channel, version: mappings_version
 
 	runs {
-		client = {
+		client {
 			workingDirectory project.file('run')
 //            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 			property 'forge.logging.console.level', 'debug'
 
 			mods {
-				trashslot {
+				prettybeaches {
 					source sourceSets.main
 				}
 			}
 		}
-		server = {
+		server {
 			workingDirectory project.file('run')
 //            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 			property 'forge.logging.console.level', 'debug'
 
 			mods {
-				trashslot {
+				prettybeaches {
+					source sourceSets.main
+				}
+			}
+		}
+		data {
+			workingDirectory project.file('run')
+//            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+			property 'forge.logging.console.level', 'debug'
+
+			args '--mod', mod_id, '--all', '--output', file('src/generated/resources/')
+
+			mods {
+				prettybeaches {
 					source sourceSets.main
 				}
 			}
@@ -59,12 +72,11 @@ dependencies {
 	])
 }
 
-// Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
         attributes(["Specification-Title": mod_id,
                     "Specification-Vendor": "BlayTheNinth",
-                    "Specification-Version": "24.0", // We are version 1 of the modlauncher specification
+                    "Specification-Version": "1",
                     "Implementation-Title": project.name,
                     "Implementation-Version": "${version}",
                     "Implementation-Vendor" :"BlayTheNinth",
