@@ -3,6 +3,7 @@ loaderVersion="[24,)"
 issueTrackerURL="https://github.com/blay09/PrettyBeaches/issues"
 displayURL="https://minecraft.curseforge.com/projects/pretty-beaches"
 authors="BlayTheNinth"
+license="MIT"
 
 [[mods]]
 modId="prettybeaches"
