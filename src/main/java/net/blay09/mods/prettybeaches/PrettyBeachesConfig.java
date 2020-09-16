@@ -1,10 +1,10 @@
 package net.blay09.mods.prettybeaches;
 
-import net.minecraft.block.Block;
-import net.minecraftforge.common.config.Config;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraftforge.common.config.Config;
 
 @Config(modid = PrettyBeaches.MOD_ID)
 public class PrettyBeachesConfig {
@@ -30,5 +30,4 @@ public class PrettyBeachesConfig {
     public static boolean isBlockAffected(Block block) {
         return affectedBlocksList.contains(block);
     }
-
 }
