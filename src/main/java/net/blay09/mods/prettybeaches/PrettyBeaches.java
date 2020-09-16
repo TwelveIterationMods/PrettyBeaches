@@ -6,12 +6,14 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -53,7 +55,25 @@ public class PrettyBeaches {
             PrettyBeachesConfig.onConfigReload();
         }
     }
-
+    
+    @SubscribeEvent
+    public void onBucketFilled(FillBucketEvent event)
+    {
+    	if (event.getEmptyBucket().getItem() == Items.BUCKET && event.getEntityPlayer() != null && !(event.getEntityPlayer() instanceof FakePlayer)) {
+            BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
+            for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
+                mutPos.setPos(event.getTarget().getBlockPos()).move(facing);
+                IBlockState state = event.getWorld().getBlockState(mutPos);
+                int waterLevel = (state.getBlock() == Blocks.FLOWING_WATER) ? state.getValue(BlockLiquid.LEVEL) : -1;
+                if (state.getBlock() == Blocks.WATER || waterLevel == 0) {
+                    event.getWorld().setBlockState(event.getTarget().getBlockPos(), Blocks.FLOWING_WATER.getDefaultState(), 11);
+                    floodingHandler.scheduleForFlooding(event.getWorld(), event.getTarget().getBlockPos(), 0);
+                    return;
+                }
+            }
+        }
+    }
+     
     @SubscribeEvent
     public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
         if (PrettyBeachesConfig.isBlockAffected(event.getState().getBlock()) && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
