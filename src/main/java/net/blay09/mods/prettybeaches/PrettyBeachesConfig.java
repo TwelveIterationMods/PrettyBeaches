@@ -16,6 +16,10 @@ public class PrettyBeachesConfig {
     @Config.Name("Animated Flooding")
     @Config.Comment("Whether the flooding of adjacent air blocks should be animated or instant.")
     public static boolean animatedFlooding = true;
+    
+    @Config.Name("Ignore Broken Block")
+    @Config.Comment("Whether the destroyed block gets a check that if it's in Affected Blocks list or not.")
+    public static boolean ignoreBrokenBlock = false;
 
     private static List<Block> affectedBlocksList = new ArrayList<>();
 
@@ -28,6 +32,6 @@ public class PrettyBeachesConfig {
     }
 
     public static boolean isBlockAffected(Block block) {
-        return affectedBlocksList.contains(block);
+        return ignoreBrokenBlock || affectedBlocksList.contains(block);
     }
 }
