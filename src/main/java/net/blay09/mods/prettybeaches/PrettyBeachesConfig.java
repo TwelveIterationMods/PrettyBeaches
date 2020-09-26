@@ -5,21 +5,18 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Config;
+import scala.actors.threadpool.Arrays;
 
 @Config(modid = PrettyBeaches.MOD_ID)
 public class PrettyBeachesConfig {
 
     @Config.Name("Affected Blocks")
-    @Config.Comment("List of blocks that should be affected by the adjusted water physics.")
+    @Config.Comment("List of blocks that should be affected by the adjusted water physics. If you want to include all the blocks, just put a '*' without the quotes into the list.")
     public static String[] affectedBlocks = {"minecraft:sand"};
 
     @Config.Name("Animated Flooding")
     @Config.Comment("Whether the flooding of adjacent air blocks should be animated or instant.")
     public static boolean animatedFlooding = true;
-    
-    @Config.Name("Ignore Broken Block")
-    @Config.Comment("Whether the destroyed block gets a check that if it's in Affected Blocks list or not.")
-    public static boolean ignoreBrokenBlock = false;
 
     private static List<Block> affectedBlocksList = new ArrayList<>();
 
@@ -32,6 +29,6 @@ public class PrettyBeachesConfig {
     }
 
     public static boolean isBlockAffected(Block block) {
-        return ignoreBrokenBlock || affectedBlocksList.contains(block);
+        return Arrays.asList(affectedBlocks).contains("*") || affectedBlocksList.contains(block);
     }
 }
