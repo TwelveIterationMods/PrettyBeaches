@@ -1,16 +1,17 @@
 package net.blay09.mods.prettybeaches;
 
-import net.minecraft.block.Block;
-import net.minecraftforge.common.config.Config;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraftforge.common.config.Config;
+import org.apache.commons.lang3.ArrayUtils;
 
 @Config(modid = PrettyBeaches.MOD_ID)
 public class PrettyBeachesConfig {
 
     @Config.Name("Affected Blocks")
-    @Config.Comment("List of blocks that should be affected by the adjusted water physics.")
+    @Config.Comment("List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.")
     public static String[] affectedBlocks = {"minecraft:sand"};
 
     @Config.Name("Animated Flooding")
@@ -28,7 +29,6 @@ public class PrettyBeachesConfig {
     }
 
     public static boolean isBlockAffected(Block block) {
-        return affectedBlocksList.contains(block);
+        return ArrayUtils.contains(affectedBlocks, "*") || affectedBlocksList.contains(block);
     }
-
 }

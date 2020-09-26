@@ -1,5 +1,8 @@
 package net.blay09.mods.prettybeaches;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -8,9 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FloodingHandler {
 
@@ -72,5 +72,4 @@ public class FloodingHandler {
             }
         }
     }
-
 }
