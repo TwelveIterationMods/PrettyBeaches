@@ -12,6 +12,7 @@ public class PrettyBeachesConfig {
 
     public static class Common {
         public final ForgeConfigSpec.ConfigValue<List<? extends String>> affectedBlocks;
+        public final ForgeConfigSpec.BooleanValue infiniteBucketWater;
         public final ForgeConfigSpec.BooleanValue animatedFlooding;
 
         Common(ForgeConfigSpec.Builder builder) {
@@ -21,6 +22,11 @@ public class PrettyBeachesConfig {
                     .comment("List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.")
                     .translation("prettybeaches.config.affectedBlocks")
                     .defineList("affectedBlocks", Lists.newArrayList("minecraft:sand"), it -> it instanceof String);
+
+            infiniteBucketWater = builder
+                    .comment("Whether buckets should be able to retrieve infinite water without destroying sources as well.")
+                    .translation("prettybeaches.config.infiniteBucketWater")
+                    .define("infiniteBucketWater", false);
 
             animatedFlooding = builder
                     .comment("Whether the flooding of adjacent air blocks should be animated or instant.")

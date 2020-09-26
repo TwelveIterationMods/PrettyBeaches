@@ -20,6 +20,10 @@ public class BucketHandler {
 
     @SubscribeEvent
     public void onBucketFilled(FillBucketEvent event) {
+        if (!PrettyBeachesConfig.COMMON.infiniteBucketWater.get()) {
+            return;
+        }
+
         if (event.getEmptyBucket().getItem() == Items.BUCKET && event.getPlayer() != null && !(event.getPlayer() instanceof FakePlayer)) {
             BlockPos.Mutable mutPos = new BlockPos.Mutable();
             for (Direction facing : Direction.Plane.HORIZONTAL) {
