@@ -18,7 +18,7 @@ public class PrettyBeachesConfig {
             builder.comment("Configuration for Pretty Beaches").push("common");
 
             affectedBlocks = builder
-                    .comment("List of blocks that should be affected by the adjusted water physics.")
+                    .comment("List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.")
                     .translation("prettybeaches.config.affectedBlocks")
                     .defineList("affectedBlocks", Lists.newArrayList("minecraft:sand"), it -> it instanceof String);
 
@@ -30,6 +30,10 @@ public class PrettyBeachesConfig {
     }
 
     public static boolean isBlockAffected(Block block) {
+        if (COMMON.affectedBlocks.get().contains("*")) {
+            return true;
+        }
+
         ResourceLocation resourceLocation = block.getRegistryName();
         if (resourceLocation != null) {
             return COMMON.affectedBlocks.get().contains(resourceLocation.toString());
