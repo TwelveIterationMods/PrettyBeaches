@@ -3,9 +3,10 @@ package net.blay09.mods.prettybeaches;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import net.minecraft.block.Block;
 import net.minecraftforge.common.config.Config;
-import org.apache.commons.lang3.ArrayUtils;
 
 @Config(modid = PrettyBeaches.MOD_ID)
 public class PrettyBeachesConfig {
