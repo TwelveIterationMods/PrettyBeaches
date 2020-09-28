@@ -15,6 +15,10 @@ public class PrettyBeachesConfig {
     @Config.Comment("List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.")
     public static String[] affectedBlocks = {"minecraft:sand"};
 
+    @Config.Name("Infinite Bucket Water")
+    @Config.Comment("Whether buckets should be able to retrieve infinite water without destroying sources as well.")
+    public static boolean infiniteBucketWater = false;
+
     @Config.Name("Animated Flooding")
     @Config.Comment("Whether the flooding of adjacent air blocks should be animated or instant.")
     public static boolean animatedFlooding = true;
