@@ -1,7 +1,11 @@
 package net.blay09.mods.prettybeaches;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.EnumFacing;
@@ -18,8 +22,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid = PrettyBeaches.MOD_ID, name = "Pretty Beaches", acceptedMinecraftVersions = "[1.12]", acceptableRemoteVersions = "*")
 public class PrettyBeaches {
@@ -61,7 +63,7 @@ public class PrettyBeaches {
             return;
         }
 
-        if (event.getEmptyBucket().getItem() == Items.BUCKET && event.getEntityPlayer() != null && !(event.getEntityPlayer() instanceof FakePlayer)) {
+        if (event.getEmptyBucket().getItem() == Items.BUCKET && crossBlockPosBiomeCheck(event.getTarget().getBlockPos()) && event.getEntityPlayer() != null && !(event.getEntityPlayer() instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getTarget().getBlockPos()).move(facing);
@@ -78,7 +80,7 @@ public class PrettyBeaches {
 
     @SubscribeEvent
     public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (PrettyBeachesConfig.isBlockAffected(event.getState().getBlock()) && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
+        if (crossBlockPosBiomeCheck(event.getPos()) && PrettyBeachesConfig.isBlockAffected(event.getState().getBlock()) && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getPos()).move(facing);
@@ -91,5 +93,17 @@ public class PrettyBeaches {
                 }
             }
         }
+    }
+    
+    public boolean crossBlockPosBiomeCheck(BlockPos blockPos) {
+    	BlockPos checkPos = blockPos;
+    	for(int i=0; i<3; i++) {
+    		checkPos=checkPos.west().north();
+    		if(PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos).getRegistryName().toString()) ||
+    		PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos.east(2*i+2)).getRegistryName().toString()) ||
+    		PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos.east(2*i+2).south(2*i+2)).getRegistryName().toString()) ||
+    		PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos.south(2*i+2)).getRegistryName().toString())) return true;
+    	}
+    	return PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(blockPos).getRegistryName().toString());
     }
 }
