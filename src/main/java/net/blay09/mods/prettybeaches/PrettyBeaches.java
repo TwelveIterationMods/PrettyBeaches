@@ -63,7 +63,7 @@ public class PrettyBeaches {
             return;
         }
 
-        if (event.getEmptyBucket().getItem() == Items.BUCKET && crossBlockPosBiomeCheck(event.getTarget().getBlockPos()) && event.getEntityPlayer() != null && !(event.getEntityPlayer() instanceof FakePlayer)) {
+        if (event.getEmptyBucket().getItem() == Items.BUCKET && crossBlockPosBiomeCheck(event.getTarget().getBlockPos()) && !(event.getEntityPlayer() instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getTarget().getBlockPos()).move(facing);
