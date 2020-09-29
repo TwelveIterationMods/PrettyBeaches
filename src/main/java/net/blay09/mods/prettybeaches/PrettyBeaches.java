@@ -59,11 +59,7 @@ public class PrettyBeaches {
 
     @SubscribeEvent
     public void onBucketFilled(FillBucketEvent event) {
-        if (!PrettyBeachesConfig.infiniteBucketWater) {
-            return;
-        }
-
-        if (event.getEmptyBucket().getItem() == Items.BUCKET && crossBlockPosBiomeCheck(event.getTarget().getBlockPos()) && !(event.getEntityPlayer() instanceof FakePlayer)) {
+        if (event.getEmptyBucket().getItem() == Items.BUCKET && isEnoughWatery(event.getTarget().getBlockPos()) && !(event.getEntityPlayer() instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getTarget().getBlockPos()).move(facing);
@@ -80,7 +76,7 @@ public class PrettyBeaches {
 
     @SubscribeEvent
     public void onBreakBlock(BlockEvent.BreakEvent event) {
-        if (crossBlockPosBiomeCheck(event.getPos()) && !(event.getPlayer() instanceof FakePlayer)) {
+        if (isEnoughWatery(event.getPos()) && !(event.getPlayer() instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getPos()).move(facing);
@@ -95,15 +91,17 @@ public class PrettyBeaches {
         }
     }
     
-    public boolean crossBlockPosBiomeCheck(BlockPos blockPos) {
-    	BlockPos checkPos = blockPos;
-    	for(int i=0; i<3; i++) {
-    		checkPos=checkPos.west().north();
-    		if(PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos).getRegistryName().toString()) ||
-    		PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos.east(2*i+2)).getRegistryName().toString()) ||
-    		PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos.east(2*i+2).south(2*i+2)).getRegistryName().toString()) ||
-    		PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(checkPos.south(2*i+2)).getRegistryName().toString())) return true;
-    	}
-    	return PrettyBeachesConfig.isBiomeAffected(Minecraft.getMinecraft().world.getBiome(blockPos).getRegistryName().toString());
+    public boolean isEnoughWatery(BlockPos blockPos) {
+    	int radius = PrettyBeachesConfig.waterCheckRadius;
+    	float waterAmountCounter=0;
+    	BlockPos checkPos=blockPos.up(radius).west(radius).north(radius);
+    	for(int i=0; i<2*radius; i++)
+    		for(int j=0; j<2*radius; j++)
+    			for(int k=0; k<2*radius; k++) {
+    				if(Minecraft.getMinecraft().world.getBlockState(checkPos.down(i).east(j).south(k)).getBlock() == Blocks.WATER)
+    					waterAmountCounter++;
+    				if(waterAmountCounter > radius * radius*2) return true;
+    			}
+    	return false;
     }
 }
