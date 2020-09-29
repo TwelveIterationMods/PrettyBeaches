@@ -79,8 +79,8 @@ public class PrettyBeaches {
     }
 
     @SubscribeEvent
-    public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (crossBlockPosBiomeCheck(event.getPos()) && event.getHarvester() != null && !(event.getHarvester() instanceof FakePlayer)) {
+    public void onBreakBlock(BlockEvent.BreakEvent event) {
+        if (crossBlockPosBiomeCheck(event.getPos()) && !(event.getPlayer() instanceof FakePlayer)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
                 mutPos.setPos(event.getPos()).move(facing);
