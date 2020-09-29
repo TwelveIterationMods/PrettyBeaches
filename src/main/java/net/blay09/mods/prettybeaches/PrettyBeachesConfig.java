@@ -6,7 +6,7 @@ import net.minecraftforge.common.config.Config;
 public class PrettyBeachesConfig {
 	
 	@Config.Name("Water Lake Check Radius")
-	@Config.Comment("The range in blocks to check the water blocks amount in 3 dimensions. Larger numbers mean more realistic but lower performance.")
+	@Config.Comment("The range in blocks to check the water blocks amount in 3 dimensions. Larger numbers mean more realistic but lower performance. Default: 5")
 	@Config.RangeInt(min=3, max=10)
 	public static int waterCheckRadius = 5;
 
