@@ -1,2 +1,0 @@
-# Pretty Beaches
-Minecraft Mod.
