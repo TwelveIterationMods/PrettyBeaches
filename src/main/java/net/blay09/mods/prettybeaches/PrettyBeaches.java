@@ -7,7 +7,6 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
@@ -59,8 +58,8 @@ public class PrettyBeaches {
 
     @SubscribeEvent
     public void onBucketFilled(FillBucketEvent event) {
-        if (event.getFilledBucket().getItem() == Items.WATER_BUCKET)
-        	if (event.getEmptyBucket().getItem() == Items.BUCKET && isEnoughWatery(event.getTarget().getBlockPos()) && !(event.getEntityPlayer() instanceof FakePlayer))
+    	if(event.getWorld().getBlockState(event.getTarget().getBlockPos()).getBlock() == Blocks.WATER)
+    		if (isEnoughWatery(event.getTarget().getBlockPos()) && !(event.getEntityPlayer() instanceof FakePlayer))
         	{
                 BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
                 for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
