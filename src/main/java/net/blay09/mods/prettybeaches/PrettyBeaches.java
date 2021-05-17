@@ -58,21 +58,22 @@ public class PrettyBeaches {
 
     @SubscribeEvent
     public void onBucketFilled(FillBucketEvent event) {
-    	if(event.getWorld().getBlockState(event.getTarget().getBlockPos()).getBlock() == Blocks.WATER)
-    		if (isEnoughWatery(event.getTarget().getBlockPos()) && !(event.getEntityPlayer() instanceof FakePlayer))
-        	{
-                BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
-                for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
-                    mutPos.setPos(event.getTarget().getBlockPos()).move(facing);
-                    IBlockState state = event.getWorld().getBlockState(mutPos);
-                    int waterLevel = (state.getBlock() == Blocks.FLOWING_WATER) ? state.getValue(BlockLiquid.LEVEL) : -1;
-                    if (state.getBlock() == Blocks.WATER || waterLevel == 0) {
-                        event.getWorld().setBlockState(event.getTarget().getBlockPos(), Blocks.FLOWING_WATER.getDefaultState(), 11);
-                        floodingHandler.scheduleForFlooding(event.getWorld(), event.getTarget().getBlockPos(), 0);
-                        return;
+    	if(event.getTarget() != null)
+    		if(event.getWorld().getBlockState(event.getTarget().getBlockPos()).getBlock() == Blocks.WATER && event.getFilledBucket() != null)
+        		if (isEnoughWatery(event.getTarget().getBlockPos()) && !(event.getEntityPlayer() instanceof FakePlayer))
+            	{
+                    BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
+                    for (EnumFacing facing : EnumFacing.Plane.HORIZONTAL) {
+                        mutPos.setPos(event.getTarget().getBlockPos()).move(facing);
+                        IBlockState state = event.getWorld().getBlockState(mutPos);
+                        int waterLevel = (state.getBlock() == Blocks.FLOWING_WATER) ? state.getValue(BlockLiquid.LEVEL) : -1;
+                        if (state.getBlock() == Blocks.WATER || waterLevel == 0) {
+                            event.getWorld().setBlockState(event.getTarget().getBlockPos(), Blocks.FLOWING_WATER.getDefaultState(), 11);
+                            floodingHandler.scheduleForFlooding(event.getWorld(), event.getTarget().getBlockPos(), 0);
+                            return;
+                        }
                     }
                 }
-            }
     }
 
     @SubscribeEvent
