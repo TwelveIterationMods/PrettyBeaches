@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[37,)"
+license="All rights reserved"
+issueTrackerURL="https://github.com/ModdingForBlockheads/PrettyBeaches/issues"
+[[mods]]
+modId="prettybeaches"
+version="${file.jarVersion}"
+displayName="Pretty Beaches"
+displayURL="https://blay09.net/mods/prettybeaches"
+logoFile="prettybeaches-icon.png"
+credits="BlayTheNinth"
+authors="BlayTheNinth"
+description='''
+Adjusts water physics when digging sand near water to prevent ugly.
+'''
+[[dependencies.prettybeaches]]
+    modId="forge"
+    mandatory=true
+    versionRange="[37,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.prettybeaches]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.17.1,1.18)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.prettybeaches]]
+    modId="balm"
+    mandatory=true
+    versionRange="[1.6.0,)"
+    ordering="NONE"
+    side="BOTH"
