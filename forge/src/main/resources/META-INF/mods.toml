@@ -2,6 +2,7 @@ modLoader="javafml"
 loaderVersion="[37,)"
 license="All rights reserved"
 issueTrackerURL="https://github.com/ModdingForBlockheads/PrettyBeaches/issues"
+
 [[mods]]
 modId="prettybeaches"
 version="${file.jarVersion}"
@@ -13,6 +14,7 @@ authors="BlayTheNinth"
 description='''
 Adjusts water physics when digging sand near water to prevent ugly.
 '''
+
 [[dependencies.prettybeaches]]
     modId="forge"
     mandatory=true
@@ -28,6 +30,6 @@ Adjusts water physics when digging sand near water to prevent ugly.
 [[dependencies.prettybeaches]]
     modId="balm"
     mandatory=true
-    versionRange="[1.6.0,)"
+    versionRange="[1.7.0,)"
     ordering="NONE"
     side="BOTH"
