@@ -31,7 +31,7 @@ public class BucketHandler {
 
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (Direction facing : Direction.Plane.HORIZONTAL) {
-                final BlockPos hitPos = new BlockPos(blockHitResult.getLocation());
+                final BlockPos hitPos = BlockPos.containing(blockHitResult.getLocation());
                 mutPos.set(hitPos).move(facing);
                 FluidState fluidState = level.getFluidState(mutPos);
                 if (fluidState.getType() == Fluids.WATER || fluidState.getType() == Fluids.FLOWING_WATER) {
