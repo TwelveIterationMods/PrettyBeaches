@@ -1,14 +1,14 @@
 package net.blay09.mods.prettybeaches.config;
 
 import com.google.common.collect.Lists;
-import me.shedaniel.autoconfig.annotation.Config;
 import net.blay09.mods.balm.api.config.BalmConfigData;
 import net.blay09.mods.balm.api.config.Comment;
+import net.blay09.mods.balm.api.config.Config;
 import net.blay09.mods.prettybeaches.PrettyBeaches;
 
 import java.util.List;
 
-@Config(name = PrettyBeaches.MOD_ID)
+@Config(PrettyBeaches.MOD_ID)
 public class PrettyBeachesConfigData implements BalmConfigData {
 
     @Comment("List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.")

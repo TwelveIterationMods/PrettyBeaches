@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/TwelveIterationMods/PrettyBeaches/issues"
 
 [[mods]]
 modId="prettybeaches"
-version="${file.jarVersion}"
+version="${mod_version}"
 displayName="Pretty Beaches"
 displayURL="https://mods.twelveiterations.com/mc/prettybeaches"
 logoFile="prettybeaches-icon.png"
