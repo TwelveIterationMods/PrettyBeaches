@@ -1,0 +1,9 @@
+{
+  "config.prettybeaches.title": "Pretty Beaches",
+  "config.prettybeaches.affectedBlocks": "Beach Blocks",
+  "config.prettybeaches.affectedBlocks.tooltip": "List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.",
+  "config.prettybeaches.infiniteBucketWater": "Infinite Bucket Water",
+  "config.prettybeaches.infiniteBucketWater.tooltip": "Whether buckets should be able to retrieve infinite water without destroying sources as well.",
+  "config.prettybeaches.animatedFlooding": "Animated Flooding",
+  "config.prettybeaches.animatedFlooding.tooltip": "Whether the flooding of adjacent air blocks should be animated or instant."
+}
