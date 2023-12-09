@@ -1,11 +1,9 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.blay09.mods.prettybeaches.mixin",
+  "package": "net.blay09.mods.prettybeaches.neoforge.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "prettybeaches.refmap.json",
   "mixins": [
-    "ItemAccessor"
   ],
   "client": [
   ],

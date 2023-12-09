@@ -1,4 +1,4 @@
-package net.blay09.mods.prettybeaches.client;
+package net.blay09.mods.prettybeaches.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
 
