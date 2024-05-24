@@ -22,4 +22,6 @@ public class PrettyBeachesConfigData implements BalmConfigData {
     @Comment("Whether the flooding of adjacent air blocks should be animated or instant.")
     public boolean animatedFlooding = true;
 
+    @Comment("Whether the Pretty Beaches behaviour should also be enabled in creative mode.")
+    public boolean enableInCreative = false;
 }

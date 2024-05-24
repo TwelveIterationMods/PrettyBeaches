@@ -19,7 +19,7 @@ public class BreakBlockHandler {
         BlockPos pos = event.getPos();
         BlockState state = event.getState();
         Player player = event.getPlayer();
-        if (player.getAbilities().instabuild) {
+        if (player.getAbilities().instabuild && !PrettyBeachesConfig.getActive().enableInCreative) {
             return;
         }
 
