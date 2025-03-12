@@ -1,7 +1,7 @@
 package net.blay09.mods.prettybeaches.config;
 
 import net.blay09.mods.balm.api.Balm;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
@@ -22,12 +22,7 @@ public class PrettyBeachesConfig {
             return true;
         }
 
-        ResourceLocation resourceLocation = Balm.getRegistries().getKey(block);
-        if (resourceLocation != null) {
-            return affectedBlocks.contains(resourceLocation.toString());
-        }
-
-        return false;
+        return affectedBlocks.contains(BuiltInRegistries.BLOCK.getKey(block).toString());
     }
 
 }
