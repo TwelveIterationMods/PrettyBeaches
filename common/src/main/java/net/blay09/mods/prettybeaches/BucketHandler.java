@@ -2,7 +2,6 @@ package net.blay09.mods.prettybeaches;
 
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.event.UseItemEvent;
-import net.blay09.mods.prettybeaches.config.PrettyBeachesConfig;
 import net.blay09.mods.prettybeaches.mixin.ItemAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

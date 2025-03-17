@@ -24,9 +24,6 @@
     ],
     "client": [
       "net.blay09.mods.prettybeaches.fabric.client.FabricPrettyBeachesClient"
-    ],
-    "modmenu": [
-      "net.blay09.mods.prettybeaches.fabric.compat.ModMenuIntegration"
     ]
   },
   "mixins": [

@@ -2,7 +2,6 @@ package net.blay09.mods.prettybeaches;
 
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.event.*;
-import net.blay09.mods.prettybeaches.config.PrettyBeachesConfig;
 
 public class PrettyBeaches {
 

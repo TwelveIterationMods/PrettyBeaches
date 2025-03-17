@@ -2,7 +2,6 @@ package net.blay09.mods.prettybeaches;
 
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.event.BreakBlockEvent;
-import net.blay09.mods.prettybeaches.config.PrettyBeachesConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
