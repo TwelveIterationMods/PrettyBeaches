@@ -22,7 +22,7 @@ public class BreakBlockHandler {
             return;
         }
 
-        if (PrettyBeachesConfig.isBlockAffected(state.getBlock()) && !Balm.getHooks().isFakePlayer(player)) {
+        if (PrettyBeachesConfig.isBlockAffected(state) && !Balm.getHooks().isFakePlayer(player)) {
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
             for (Direction facing : Direction.Plane.HORIZONTAL) {
                 mutPos.set(pos).move(facing);

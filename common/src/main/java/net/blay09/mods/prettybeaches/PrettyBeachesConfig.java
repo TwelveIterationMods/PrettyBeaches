@@ -1,21 +1,16 @@
 package net.blay09.mods.prettybeaches;
 
-import com.google.common.collect.Lists;
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.config.reflection.Comment;
 import net.blay09.mods.balm.api.config.reflection.Config;
-import net.blay09.mods.balm.api.config.reflection.NestedType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.Block;
-
-import java.util.List;
+import net.blay09.mods.prettybeaches.tag.ModBlockTags;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Config(PrettyBeaches.MOD_ID)
 public class PrettyBeachesConfig {
 
-    @NestedType(String.class)
-    @Comment("List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.")
-    public List<String> affectedBlocks = Lists.newArrayList("minecraft:sand");
+    @Comment("By default, only blocks with the tag prettybeaches:preserve_pretty will cause adjusted water physics. Set to true to run Pretty Beaches on all blocks.")
+    public boolean affectAllBlocks = false;
 
     @Comment("Whether buckets should be able to retrieve infinite water without destroying sources as well.")
     public boolean infiniteBucketWater = false;
@@ -34,12 +29,11 @@ public class PrettyBeachesConfig {
         Balm.getConfig().registerConfig(PrettyBeachesConfig.class);
     }
 
-    public static boolean isBlockAffected(Block block) {
-        List<String> affectedBlocks = getActive().affectedBlocks;
-        if (affectedBlocks.contains("*")) {
+    public static boolean isBlockAffected(BlockState state) {
+        if (getActive().affectAllBlocks) {
             return true;
         }
 
-        return affectedBlocks.contains(BuiltInRegistries.BLOCK.getKey(block).toString());
+        return state.is(ModBlockTags.PRESERVE_PRETTY);
     }
 }

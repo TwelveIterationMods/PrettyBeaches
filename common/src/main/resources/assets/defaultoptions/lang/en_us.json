@@ -1,7 +1,7 @@
 {
   "prettybeaches.configuration.title": "Pretty Beaches",
-  "prettybeaches.configuration.affectedBlocks": "Beach Blocks",
-  "prettybeaches.configuration.affectedBlocks.tooltip": "List of blocks that should be affected by the adjusted water physics. If you want to have all blocks affected, just include \"*\" in the list.",
+  "prettybeaches.configuration.affectAllBlocks": "Affect all Blocks",
+  "prettybeaches.configuration.affectAllBlocks.tooltip": "By default, only blocks with the tag prettybeaches:preserve_pretty will cause adjusted water physics. Set to true to run Pretty Beaches on all blocks.",
   "prettybeaches.configuration.infiniteBucketWater": "Infinite Bucket Water",
   "prettybeaches.configuration.infiniteBucketWater.tooltip": "Whether buckets should be able to retrieve infinite water without destroying sources as well.",
   "prettybeaches.configuration.animatedFlooding": "Animated Flooding",
