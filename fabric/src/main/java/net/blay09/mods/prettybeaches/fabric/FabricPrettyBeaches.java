@@ -8,6 +8,6 @@ import net.fabricmc.api.ModInitializer;
 public class FabricPrettyBeaches implements ModInitializer {
     @Override
     public void onInitialize() {
-        Balm.initialize(PrettyBeaches.MOD_ID, EmptyLoadContext.INSTANCE, PrettyBeaches::initialize);
+        Balm.initializeMod(PrettyBeaches.MOD_ID, EmptyLoadContext.INSTANCE, PrettyBeaches::initialize);
     }
 }
