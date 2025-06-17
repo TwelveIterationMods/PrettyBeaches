@@ -10,7 +10,7 @@ public class ForgePrettyBeaches {
 
     public ForgePrettyBeaches(FMLJavaModLoadingContext context) {
         final var loadContext = new ForgeLoadContext(context.getModEventBus());
-        Balm.initialize(PrettyBeaches.MOD_ID, loadContext, PrettyBeaches::initialize);
+        Balm.initializeMod(PrettyBeaches.MOD_ID, loadContext, PrettyBeaches::initialize);
     }
 
 }

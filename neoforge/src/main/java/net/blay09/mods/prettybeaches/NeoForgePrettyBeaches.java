@@ -10,7 +10,7 @@ public class NeoForgePrettyBeaches {
 
     public NeoForgePrettyBeaches(IEventBus modEventBus) {
         final var context = new NeoForgeLoadContext(modEventBus);
-        Balm.initialize(PrettyBeaches.MOD_ID, context, PrettyBeaches::initialize);
+        Balm.initializeMod(PrettyBeaches.MOD_ID, context, PrettyBeaches::initialize);
     }
 
 }
