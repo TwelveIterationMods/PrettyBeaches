@@ -1,24 +1,26 @@
 package net.blay09.mods.prettybeaches;
 
-import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.balm.api.event.*;
-import net.minecraft.resources.ResourceLocation;
+import net.blay09.mods.balm.core.BalmRegistrars;
+import net.blay09.mods.balm.platform.event.EventPhases;
+import net.blay09.mods.balm.platform.event.callback.BlockCallback;
+import net.blay09.mods.balm.platform.event.callback.ItemCallback;
+import net.blay09.mods.balm.platform.event.callback.ServerTickCallback;
+import net.minecraft.resources.Identifier;
 
 public class PrettyBeaches {
 
     public static final String MOD_ID = "prettybeaches";
 
-    public static void initialize() {
+    public static void initialize(BalmRegistrars registrars) {
         PrettyBeachesConfig.initialize();
 
-        Balm.getEvents().onTickEvent(TickType.ServerLevel, TickPhase.End, FloodingManager::onWorldTick);
-
-        Balm.getEvents().onEvent(BreakBlockEvent.class, BreakBlockHandler::onBreakBlock, EventPriority.Lowest);
-        Balm.getEvents().onEvent(UseItemEvent.class, BucketHandler::onItemUse);
+        ServerTickCallback.ServerLevelTick.AFTER.register(FloodingManager::onWorldTick);
+        BlockCallback.Break.EVENT.register(EventPhases.LOWEST, BreakBlockHandler::onBreakBlock);
+        ItemCallback.Use.EVENT.register(BucketHandler::onItemUse);
     }
 
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    public static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
 }

@@ -2,14 +2,15 @@ package net.blay09.mods.prettybeaches;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 
 public class ScheduledFloodingEntry {
-    public Level level;
+    public LevelAccessor level;
     public BlockPos pos;
     public int depth;
     public int ticksExisted;
 
-    public ScheduledFloodingEntry(Level level, BlockPos pos, int depth) {
+    public ScheduledFloodingEntry(LevelAccessor level, BlockPos pos, int depth) {
         this.level = level;
         this.pos = pos;
         this.depth = depth;

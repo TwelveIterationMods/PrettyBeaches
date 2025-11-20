@@ -3,6 +3,7 @@ package net.blay09.mods.prettybeaches;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -18,7 +19,7 @@ public class FloodingManager {
 
     private static final List<ScheduledFloodingEntry> scheduledFloods = new ArrayList<>();
 
-    public static void scheduleForFlooding(Level level, BlockPos pos, int depth) {
+    public static void scheduleForFlooding(LevelAccessor level, BlockPos pos, int depth) {
         if (PrettyBeachesConfig.getActive().animatedFlooding) {
             scheduledFloods.add(new ScheduledFloodingEntry(level, pos, depth));
         } else {
@@ -37,7 +38,7 @@ public class FloodingManager {
         }
     }
 
-    private static void populateWater(Level level, BlockPos pos, int depth) {
+    private static void populateWater(LevelAccessor level, BlockPos pos, int depth) {
         FluidState sourceState = level.getFluidState(pos);
         if (sourceState.createLegacyBlock().isAir() || sourceState.getType() == Fluids.WATER || sourceState.getType() == Fluids.FLOWING_WATER) {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), 11);

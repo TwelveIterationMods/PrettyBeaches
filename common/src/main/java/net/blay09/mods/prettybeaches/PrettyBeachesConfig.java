@@ -1,8 +1,8 @@
 package net.blay09.mods.prettybeaches;
 
-import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.balm.api.config.reflection.Comment;
-import net.blay09.mods.balm.api.config.reflection.Config;
+import net.blay09.mods.balm.Balm;
+import net.blay09.mods.balm.platform.config.reflection.Comment;
+import net.blay09.mods.balm.platform.config.reflection.Config;
 import net.blay09.mods.prettybeaches.tag.ModBlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -22,11 +22,11 @@ public class PrettyBeachesConfig {
     public boolean enableInCreative = false;
 
     public static PrettyBeachesConfig getActive() {
-        return Balm.getConfig().getActiveConfig(PrettyBeachesConfig.class);
+        return Balm.config().getActiveConfig(PrettyBeachesConfig.class);
     }
 
     public static void initialize() {
-        Balm.getConfig().registerConfig(PrettyBeachesConfig.class);
+        Balm.config().registerConfig(PrettyBeachesConfig.class);
     }
 
     public static boolean isBlockAffected(BlockState state) {

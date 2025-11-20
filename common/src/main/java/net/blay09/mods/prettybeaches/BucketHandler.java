@@ -1,10 +1,11 @@
 package net.blay09.mods.prettybeaches;
 
-import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.balm.api.event.UseItemEvent;
+import net.blay09.mods.balm.Balm;
 import net.blay09.mods.prettybeaches.mixin.ItemAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -17,15 +18,13 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class BucketHandler {
 
-    public static void onItemUse(UseItemEvent event) {
-        Level level = event.getLevel();
-        Player player = event.getPlayer();
-        ItemStack heldItem = player.getItemInHand(event.getHand());
+    public static InteractionResult onItemUse(Player player, Level level, InteractionHand hand) {
+        ItemStack heldItem = player.getItemInHand(hand);
         if (!PrettyBeachesConfig.getActive().infiniteBucketWater) {
-            return;
+            return InteractionResult.PASS;
         }
 
-        if (heldItem.getItem() == Items.BUCKET && !Balm.getHooks().isFakePlayer(player)) {
+        if (heldItem.getItem() == Items.BUCKET && !Balm.hooks().isFakePlayer(player)) {
             BlockHitResult blockHitResult = ItemAccessor.callGetPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
 
             BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
@@ -36,10 +35,11 @@ public class BucketHandler {
                 if (fluidState.getType() == Fluids.WATER || fluidState.getType() == Fluids.FLOWING_WATER) {
                     level.setBlock(hitPos, Blocks.WATER.defaultBlockState(), 11);
                     FloodingManager.scheduleForFlooding(level, hitPos, 0);
-                    return;
+                    return InteractionResult.PASS;
                 }
             }
         }
+        return InteractionResult.PASS;
     }
 
 }
