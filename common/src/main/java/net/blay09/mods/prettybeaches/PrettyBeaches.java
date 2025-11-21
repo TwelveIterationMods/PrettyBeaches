@@ -15,7 +15,7 @@ public class PrettyBeaches {
         PrettyBeachesConfig.initialize();
 
         ServerTickCallback.ServerLevelTick.AFTER.register(FloodingManager::onWorldTick);
-        BlockCallback.Break.EVENT.register(EventPhases.LOWEST, BreakBlockHandler::onBreakBlock);
+        BlockCallback.Break.Before.EVENT.register(EventPhases.LOWEST, BreakBlockHandler::onBreakBlock);
         ItemCallback.Use.EVENT.register(BucketHandler::onItemUse);
     }
 

@@ -1,7 +1,6 @@
 package net.blay09.mods.prettybeaches;
 
 import net.blay09.mods.balm.Balm;
-import net.blay09.mods.balm.platform.event.EventHandling;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -16,9 +15,9 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 public class BreakBlockHandler {
-    public static EventHandling onBreakBlock(LevelAccessor level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Player player) {
+    public static boolean onBreakBlock(LevelAccessor level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Player player) {
         if (player.getAbilities().instabuild && !PrettyBeachesConfig.getActive().enableInCreative) {
-            return EventHandling.RESUME;
+            return true;
         }
 
         if (PrettyBeachesConfig.isBlockAffected(state) && !Balm.hooks().isFakePlayer(player)) {
@@ -32,11 +31,11 @@ public class BreakBlockHandler {
                     }
                     level.setBlock(pos, Blocks.WATER.defaultBlockState(), 11);
                     FloodingManager.scheduleForFlooding(level, pos, 0);
-                    return EventHandling.RESUME;
+                    return true;
                 }
             }
         }
 
-        return EventHandling.RESUME;
+        return true;
     }
 }
