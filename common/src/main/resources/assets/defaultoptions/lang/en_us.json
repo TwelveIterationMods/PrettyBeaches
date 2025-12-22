@@ -5,5 +5,7 @@
   "prettybeaches.configuration.infiniteBucketWater": "Infinite Bucket Water",
   "prettybeaches.configuration.infiniteBucketWater.tooltip": "Whether buckets should be able to retrieve infinite water without destroying sources as well.",
   "prettybeaches.configuration.animatedFlooding": "Animated Flooding",
-  "prettybeaches.configuration.animatedFlooding.tooltip": "Whether the flooding of adjacent air blocks should be animated or instant."
+  "prettybeaches.configuration.animatedFlooding.tooltip": "Whether the flooding of adjacent air blocks should be animated or instant.",
+  "prettybeaches.configuration.enableInCreative": "Enable in Creative",
+  "prettybeaches.configuration.enableInCreative.tooltip": "Whether the Pretty Beaches behaviour should also be enabled in creative mode."
 }
