@@ -1,1 +1,2 @@
 - Fixed translations in config screen
+- Fixed thread safety of animated flooding to avoid issues with thread optimization mods
