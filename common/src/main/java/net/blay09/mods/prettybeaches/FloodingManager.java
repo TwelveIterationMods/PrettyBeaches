@@ -10,30 +10,41 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import net.minecraft.server.level.ServerLevel;
+import java.util.WeakHashMap;
 
 public class FloodingManager {
 
     public static final int FLOOD_TIME = 10;
     private static final int MAX_DEPTH = 6;
 
-    private static final List<ScheduledFloodingEntry> scheduledFloods = new ArrayList<>();
+    private static final Map<Level, List<ScheduledFloodingEntry>> scheduledFloods = Collections.synchronizedMap(new WeakHashMap<>());
 
     public static void scheduleForFlooding(Level level, BlockPos pos, int depth) {
         if (PrettyBeachesConfig.getActive().animatedFlooding) {
-            scheduledFloods.add(new ScheduledFloodingEntry(level, pos, depth));
+            if (level instanceof ServerLevel serverLevel) {
+                List<ScheduledFloodingEntry> floods = scheduledFloods.computeIfAbsent(serverLevel, k -> new ArrayList<>());
+                floods.add(new ScheduledFloodingEntry(pos, depth));
+            }
         } else {
             populateWater(level, pos, depth);
         }
     }
 
     public static void onWorldTick(Level level) {
-        for (int i = scheduledFloods.size() - 1; i >= 0; i--) {
-            ScheduledFloodingEntry entry = scheduledFloods.get(i);
+        List<ScheduledFloodingEntry> floods = scheduledFloods.get(level);
+        if (floods == null || floods.isEmpty()) {
+            return;
+        }
+        for (int i = floods.size() - 1; i >= 0; i--) {
+            ScheduledFloodingEntry entry = floods.get(i);
             entry.ticksExisted++;
             if (entry.ticksExisted >= FLOOD_TIME) {
-                populateWater(entry.level, entry.pos, entry.depth);
-                scheduledFloods.remove(i);
+                populateWater(level, entry.pos, entry.depth);
+                floods.remove(i);
             }
         }
     }
