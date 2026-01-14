@@ -5,13 +5,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
 public class ScheduledFloodingEntry {
-    public LevelAccessor level;
     public BlockPos pos;
     public int depth;
     public int ticksExisted;
 
-    public ScheduledFloodingEntry(LevelAccessor level, BlockPos pos, int depth) {
-        this.level = level;
+    public ScheduledFloodingEntry(BlockPos pos, int depth) {
         this.pos = pos;
         this.depth = depth;
     }
