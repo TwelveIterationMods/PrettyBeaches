@@ -1,2 +1,2 @@
-- Fixed translations in config screen
-- Fixed thread safety of animated flooding to avoid issues with thread optimization mods
+- Updated to Minecraft 26.1
+- Fixed all translation keys missing
