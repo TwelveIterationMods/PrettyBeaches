@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BreakBlockHandler {
     public static boolean onBreakBlock(LevelAccessor level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Player player) {
-        if (player.getAbilities().instabuild && !PrettyBeachesConfig.getActive().enableInCreative) {
+        if (player == null || (player.getAbilities().instabuild && !PrettyBeachesConfig.getActive().enableInCreative)) {
             return true;
         }
 

@@ -6,6 +6,8 @@ import net.blay09.mods.balm.platform.config.reflection.Config;
 import net.blay09.mods.prettybeaches.tag.ModBlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Objects;
+
 @Config(PrettyBeaches.MOD_ID)
 public class PrettyBeachesConfig {
 
@@ -22,7 +24,7 @@ public class PrettyBeachesConfig {
     public boolean enableInCreative = false;
 
     public static PrettyBeachesConfig getActive() {
-        return Balm.config().getActiveConfig(PrettyBeachesConfig.class);
+        return Objects.requireNonNull(Balm.config().getActiveConfig(PrettyBeachesConfig.class));
     }
 
     public static void initialize() {
