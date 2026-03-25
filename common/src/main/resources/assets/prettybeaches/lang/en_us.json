@@ -7,5 +7,5 @@
   "prettybeaches.configuration.animatedFlooding": "Animated Flooding",
   "prettybeaches.configuration.animatedFlooding.tooltip": "Whether the flooding of adjacent air blocks should be animated or instant.",
   "prettybeaches.configuration.enableInCreative": "Enable in Creative",
-  "prettybeaches.configuration.enableInCreative.tooltip": "Whether the Pretty Beaches behaviour should also be enabled in creative mode."
+  "prettybeaches.configuration.enableInCreative.tooltip": "Whether the Pretty Beaches behavior should also be enabled in creative mode."
 }

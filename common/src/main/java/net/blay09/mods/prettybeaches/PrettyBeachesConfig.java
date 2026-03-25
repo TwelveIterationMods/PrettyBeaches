@@ -18,7 +18,7 @@ public class PrettyBeachesConfig {
     @Comment("Whether the flooding of adjacent air blocks should be animated or instant.")
     public boolean animatedFlooding = true;
 
-    @Comment("Whether the Pretty Beaches behaviour should also be enabled in creative mode.")
+    @Comment("Whether the Pretty Beaches behavior should also be enabled in creative mode.")
     public boolean enableInCreative = false;
 
     public static PrettyBeachesConfig getActive() {
