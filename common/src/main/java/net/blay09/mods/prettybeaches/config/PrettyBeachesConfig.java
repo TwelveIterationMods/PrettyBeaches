@@ -1,6 +1,8 @@
 package net.blay09.mods.prettybeaches.config;
 
 import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.common.config.ConfigLocalization;
+import net.blay09.mods.prettybeaches.PrettyBeaches;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 
@@ -13,6 +15,7 @@ public class PrettyBeachesConfig {
     }
 
     public static void initialize() {
+        ConfigLocalization.enableModernTranslationKeys(PrettyBeaches.MOD_ID);
         Balm.getConfig().registerConfig(PrettyBeachesConfigData.class, null);
     }
 
