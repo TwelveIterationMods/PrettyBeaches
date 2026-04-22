@@ -1,1 +1,2 @@
-- Fixed Pretty Beaches preventing excavator-like tools from working correctly on sand
+- Fixed config translation keys
+- Fixed potential crashes when used alongside multi-threading performance mods
