@@ -1,2 +1,1 @@
-- Updated to Minecraft 26.1
-- Fixed all translation keys missing
+- Updated to Minecraft 26.2
